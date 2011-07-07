@@ -47,7 +47,7 @@ public class ClassNode {
 			interfaces.add(constantPool.getConstantUtf8(iface.getNameIndex()).getBytes());
 		}
 
-		SourceFileAttribute sourceFileAttribute = attributePool.getFirstAttributesByClass(SourceFileAttribute.class);
+		SourceFileAttribute sourceFileAttribute = attributePool.getFirstAttributeByClass(SourceFileAttribute.class);
 		this.sourceFile = constantPool.getConstantUtf8(sourceFileAttribute.getSourceFileIndex()).getBytes();
 		this.sourceDebug = null; // TODO: implement this
 
@@ -56,7 +56,7 @@ public class ClassNode {
 		this.outerMethodDesc = null; // TODO: implement this
 
 		this.innerClasses = new ArrayList<InnerClassNode>();
-		InnerClassAttribute innerClassAttribute = attributePool.getFirstAttributesByClass(InnerClassAttribute.class);
+		InnerClassAttribute innerClassAttribute = attributePool.getFirstAttributeByClass(InnerClassAttribute.class);
 		if(innerClassAttribute != null) {
 			for(int i = 0; i < innerClassAttribute.getAttributeLength(); i++) {
 				innerClasses.add(new InnerClassNode(innerClassAttribute.getClasses()[i], constantPool));

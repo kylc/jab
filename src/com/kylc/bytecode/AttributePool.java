@@ -24,7 +24,7 @@ public class AttributePool {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public <T> T getFirstAttributesByClass(Class<T> clazz) {
+	public <T> T getFirstAttributeByClass(Class<T> clazz) {
 		for(int i = 0; i < attributes.length; i++) {
 			if(attributes[i].getClass().equals(clazz)) {
 				return (T) attributes[i];
