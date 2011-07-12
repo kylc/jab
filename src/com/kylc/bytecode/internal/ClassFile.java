@@ -70,7 +70,7 @@ public class ClassFile {
 
 	public int[] getInterfaces() {
 		return interfaces;
-	} // TODO: implement this
+	}
 
 	public FieldInfo[] getFields() {
 		return fields;
