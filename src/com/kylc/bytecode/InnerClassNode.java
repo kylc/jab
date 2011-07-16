@@ -12,10 +12,10 @@ public class InnerClassNode {
 	public InnerClassNode(InnerClassAttribute.InnerClassEntry entry, ConstantPool constantPool) {
 		this.access = entry.getInnerClassAccessFlags();
 		this.name = constantPool.getConstantUtf8(entry.getInnerNameIndex()).getBytes();
-		
+
 		ConstantClass thisInnerClass = constantPool.getConstantClass(entry.getInnerClassInfoIndex());
 		this.innerName = constantPool.getConstantUtf8(thisInnerClass.getNameIndex()).getBytes();
-		
+
 		ConstantClass outerClass = constantPool.getConstantClass(entry.getInnerClassInfoIndex());
 		this.outerName = constantPool.getConstantUtf8(outerClass.getNameIndex()).getBytes();
 	}

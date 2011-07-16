@@ -9,12 +9,12 @@ public class StackMapTableAttribute extends AttributeInfo {
 	public StackMapTableAttribute(int nameIndex, int length, String name) {
 		super(nameIndex, length, name);
 	}
-	
+
 	public static StackMapTableAttribute parse(DataInputStream input, Constant[] constantPool, int nameIndex, int length,
 			String name) throws IOException {
 		// TODO: implement this
 		input.skip(length);
-		
+
 		return new StackMapTableAttribute(nameIndex, length, name);
 	}
 }

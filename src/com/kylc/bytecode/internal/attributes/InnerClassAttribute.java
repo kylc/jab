@@ -8,7 +8,7 @@ import com.kylc.bytecode.internal.constants.Constant;
 public class InnerClassAttribute extends AttributeInfo {
 	private final int numberOfClasses;
 	private final InnerClassEntry[] classes;
-	
+
 	public InnerClassAttribute(int nameIndex, int length, String name, int numberOfClasses,
 			InnerClassEntry[] classes) {
 		super(nameIndex, length, name);
@@ -28,26 +28,26 @@ public class InnerClassAttribute extends AttributeInfo {
 			String name) throws IOException {
 		int numberOfClasses = input.readShort();
 		InnerClassEntry[] classes = new InnerClassEntry[numberOfClasses];
-		
+
 		for(int i = 0; i < numberOfClasses; i++) {
 			int innerClassInfoIndex = input.readShort();
 			int outerClassInfoIndex = input.readShort();
 			int innerNameIndex = input.readShort();
 			int innerClassAccessFlags = input.readShort();
-			
+
 			classes[i] = new InnerClassEntry(innerClassInfoIndex, outerClassInfoIndex, innerNameIndex,
 					innerClassAccessFlags);
 		}
-		
+
 		return new InnerClassAttribute(nameIndex, length, name, numberOfClasses, classes);
 	}
-	
+
 	public static class InnerClassEntry {
 		private final int innerClassInfoIndex;
 		private final int outerClassInfoIndex;
 		private final int innerNameIndex;
 		private final int innerClassAccessFlags;
-		
+
 		public InnerClassEntry(int innerClassInfoIndex, int outerClassInfoIndex, int innerNameIndex,
 				int innerClassAccessFlags) {
 			this.innerClassInfoIndex = innerClassInfoIndex;

@@ -3,10 +3,10 @@ package com.kylc.bytecode.internal.constants;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-public class Constant {
+public abstract class Constant {
 	public static Constant parse(DataInputStream input) throws IOException {
 		int tag = input.readByte();
-		
+
 		switch(tag) {
 		case 1: return ConstantUtf8.parse(input);
 		case 3: return ConstantInteger.parse(input);
@@ -20,7 +20,7 @@ public class Constant {
 		case 11: return ConstantInterfaceMethodRef.parse(input);
 		case 12: return ConstantNameAndType.parse(input);
 		}
-		
+
 		return null;
 	}
 }

@@ -29,16 +29,16 @@ public class LineNumberTableAttribute extends AttributeInfo {
 			Constant[] constantPool, int nameIndex, int length, String name) throws IOException {
 		int lineNumberTableLength = input.readShort();
 		LineNumberTableEntry[] lineNumberTable = new LineNumberTableEntry[lineNumberTableLength];
-		
+
 		for(int i = 0; i < lineNumberTable.length; i++) {
 			int startPc = input.readShort();
 			int lineNumber = input.readShort();
 			lineNumberTable[i] = new LineNumberTableEntry(startPc, lineNumber);
 		}
-		
+
 		return new LineNumberTableAttribute(nameIndex, length, name, lineNumberTableLength, lineNumberTable);
 	}
-	
+
 	public static class LineNumberTableEntry {
 		private final int startPc;
 		private final int lineNumber;
@@ -47,11 +47,11 @@ public class LineNumberTableAttribute extends AttributeInfo {
 			this.startPc = startPc;
 			this.lineNumber = lineNumber;
 		}
-		
+
 		public int getStartPc() {
 			return startPc;
 		}
-		
+
 		public int getLineNumber() {
 			return lineNumber;
 		}

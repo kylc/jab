@@ -28,11 +28,11 @@ public class ExceptionsAttribute extends AttributeInfo {
 			String name) throws IOException {
 		int numberOfExceptions = input.readShort();
 		int[] exceptionIndexTable = new int[numberOfExceptions];
-		
+
 		for(int i = 0; i < exceptionIndexTable.length; i++) {
 			exceptionIndexTable[i] = input.readShort();
 		}
-		
+
 		return new ExceptionsAttribute(nameIndex, length, name, numberOfExceptions, exceptionIndexTable);
 	}
 }

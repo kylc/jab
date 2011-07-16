@@ -20,18 +20,18 @@ public class LocalVariableTableAttribute extends AttributeInfo {
 			Constant[] constantPool, int nameIndex, int length, String name) throws IOException {
 		int localVariableTableLength = input.readShort();
 		LocalVariableTableEntry[] localVariableTable = new LocalVariableTableEntry[localVariableTableLength];
-		
+
 		for(int i = 0; i < localVariableTable.length; i++) {
 			int startPc = input.readShort();
 			int entryLength = input.readShort();
 			int entryNameIndex = input.readShort();
 			int descriptorIndex = input.readShort();
 			int index = input.readShort();
-			
+
 			localVariableTable[i] = new LocalVariableTableEntry(startPc, entryLength, entryNameIndex, descriptorIndex,
 					index);
 		}
-		
+
 		return new LocalVariableTableAttribute(nameIndex, length, name, localVariableTableLength, localVariableTable);
 	}
 

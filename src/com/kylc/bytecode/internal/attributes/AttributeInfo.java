@@ -32,9 +32,9 @@ public class AttributeInfo {
 	public static AttributeInfo parse(DataInputStream input, Constant[] constantPool) throws IOException {
 		int nameIndex = input.readShort();
 		int length = input.readInt();
-		
+
 		String name = ((ConstantUtf8) constantPool[nameIndex]).getBytes();
-		
+
 		if(name.equals("ConstantValue")) return ConstantValueAttribute.parse(input, constantPool, nameIndex, length, name);
 		else if(name.equals("Code")) return CodeAttribute.parse(input, constantPool, nameIndex, length, name);
 		else if(name.equals("Exceptions")) return ExceptionsAttribute.parse(input, constantPool, nameIndex, length, name);
@@ -46,7 +46,7 @@ public class AttributeInfo {
 		else if(name.equals("StackMapTable")) return StackMapTableAttribute.parse(input, constantPool, nameIndex, length, name);
 		else if(name.equals("Deprecated")) return DeprecatedAttribute.parse(input, constantPool, nameIndex, length, name);
 		else if(name.equals("Signature")) return SignatureAttribute.parse(input, constantPool, nameIndex, length, name);
-		
+
 		return null;
 	}
 }

@@ -14,7 +14,7 @@ public class CodeAttribute extends AttributeInfo {
 	private final ExceptionTableEntry[] exceptionTable;
 	private final int attributesCount;
 	private final AttributeInfo[] attributes;
-	
+
 	public CodeAttribute(int nameIndex, int length, String name, int maxStacks, int maxLocals, int codeLength,
 			byte[] code, int exceptionTableLength, ExceptionTableEntry[] exceptionTable, int attributesCount,
 			AttributeInfo[] attributes) {
@@ -32,7 +32,7 @@ public class CodeAttribute extends AttributeInfo {
 	public int getMaxStacks() {
 		return maxStacks;
 	}
-	
+
 	public int getMaxLocals() {
 		return maxLocals;
 	}
@@ -66,58 +66,58 @@ public class CodeAttribute extends AttributeInfo {
 		int maxStacks = input.readShort();
 		int maxLocals = input.readShort();
 		int codeLength = input.readInt();
-		
+
 		byte[] code = new byte[codeLength];
 		input.read(code);
-		
+
 		int exceptionTableLength = input.readShort();
 		ExceptionTableEntry[] exceptionTable = new ExceptionTableEntry[exceptionTableLength];
-		
+
 		for(int i = 0; i < exceptionTable.length; i++) {
 			int startPc = input.readShort();
 			int endPc = input.readShort();
 			int handlerPc = input.readShort();
 			int catchType = input.readShort();
-			
+
 			exceptionTable[i] = new ExceptionTableEntry(startPc, endPc, handlerPc, catchType);
 		}
-		
+
 		int attributesCount = input.readShort();
 		AttributeInfo[] attributes = new AttributeInfo[attributesCount];
-		
+
 		for(int i = 0; i < attributes.length; i++) {
 			attributes[i] = AttributeInfo.parse(input, constantPool);
 		}
-		
+
 		return new CodeAttribute(nameIndex, length, name, maxStacks, maxLocals, codeLength, code, exceptionTableLength,
 				exceptionTable, attributesCount, attributes);
 	}
-	
+
 	public static class ExceptionTableEntry {
 		private final int startPc;
 		private final int endPc;
 		private final int handlerPc;
 		private final int catchType;
-		
+
 		public ExceptionTableEntry(int startPc, int endPc, int handlerPc, int catchType) {
 			this.startPc = startPc;
 			this.endPc = endPc;
 			this.handlerPc = handlerPc;
 			this.catchType = catchType;
 		}
-		
+
 		public int getStartPc() {
 			return startPc;
 		}
-		
+
 		public int getEndPc() {
 			return endPc;
 		}
-		
+
 		public int getHandlerPc() {
 			return handlerPc;
 		}
-		
+
 		public int getCatchType() {
 			return catchType;
 		}

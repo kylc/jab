@@ -7,7 +7,7 @@ import com.kylc.bytecode.internal.constants.Constant;
 
 public class SourceFileAttribute extends AttributeInfo {
 	private final int sourceFileIndex;
-	
+
 	public SourceFileAttribute(int nameIndex, int length, String name, int sourceFileIndex) {
 		super(nameIndex, length, name);
 		this.sourceFileIndex = sourceFileIndex;
@@ -16,7 +16,7 @@ public class SourceFileAttribute extends AttributeInfo {
 	public static SourceFileAttribute parse(DataInputStream input,
 			Constant[] constantPool, int nameIndex, int length, String name) throws IOException {
 		int sourceFileIndex = input.readShort();
-		
+
 		return new SourceFileAttribute(nameIndex, length, name, sourceFileIndex);
 	}
 

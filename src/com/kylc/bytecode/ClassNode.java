@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kylc.bytecode.internal.ClassFile;
+import com.kylc.bytecode.internal.FieldInfo;
+import com.kylc.bytecode.internal.MethodInfo;
 import com.kylc.bytecode.internal.attributes.InnerClassAttribute;
 import com.kylc.bytecode.internal.attributes.SourceFileAttribute;
 import com.kylc.bytecode.internal.constants.ConstantClass;
@@ -28,9 +30,12 @@ public class ClassNode {
 	private final List<FieldNode> fields;
 	private final List<MethodNode> methods;
 
+	private final ConstantPool constantPool;
+	private final AttributePool attributePool;
+
 	public ClassNode(ClassFile file) {
-		ConstantPool constantPool = new ConstantPool(file.getConstantPool());
-		AttributePool attributePool = new AttributePool(file.getAttributes());
+		this.constantPool = new ConstantPool(file.getConstantPool());
+		this.attributePool = new AttributePool(file.getAttributes());
 
 		this.version = file.getMajorVersion() + file.getMinorVersion();
 		this.access = file.getAccessFlags();
@@ -62,15 +67,17 @@ public class ClassNode {
 				innerClasses.add(new InnerClassNode(innerClassAttribute.getClasses()[i], constantPool));
 			}
 		}
-			
+
 		this.fields = new ArrayList<FieldNode>();
 		for (int i = 0; i < file.getFields().length; i++) {
-			fields.add(new FieldNode(file.getFields()[i], constantPool));
+			FieldInfo field = file.getFields()[i];
+			fields.add(new FieldNode(field, constantPool, new AttributePool(field.getAttributes())));
 		}
 
 		this.methods = new ArrayList<MethodNode>();
 		for (int i = 0; i < file.getFields().length; i++) {
-			methods.add(new MethodNode(file.getMethods()[i], constantPool));
+			MethodInfo method = file.getMethods()[i];
+			methods.add(new MethodNode(method, constantPool, new AttributePool(method.getAttributes())));
 		}
 	}
 
@@ -128,6 +135,14 @@ public class ClassNode {
 
 	public List<MethodNode> getMethods() {
 		return methods;
+	}
+
+	public ConstantPool getConstantPool() {
+		return constantPool;
+	}
+
+	public AttributePool getAttributePool() {
+		return attributePool;
 	}
 
 	@Override
